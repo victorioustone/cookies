@@ -1,4 +1,4 @@
-#cумма 
+#cумма
 def summ(a):
     b = 0
     for _ in a.split(','):
@@ -22,8 +22,8 @@ def conf_numss(st_f, pluss, numss):
                 numss += (i // (st_f1 + pluss)) - 1
     return numss
 
-
-
+file = open('result.txt', 'a')
+print('Данные записываются в файл result.txt')
 nums = int(input('Введите кол-во команд >>> '))
 pluss = int(input('Накладные расходы по организации конвейерной обработки >>> '))
 fin = 0
@@ -33,13 +33,14 @@ for i in range(nums):
     fin += summ(st)
     st_f.append(max(st.split(',')))
 st_f1 = int(max(st_f))
-# numss = 2*nums-2
 numss = nums+6-1
 
-
-print('Безконвейерный', fin)
-print('такты', numss)
-print('Конвейер', final(st_f1, pluss, numss))
+file.write(f'Безконвейерный - {fin} (cр.знач - {fin / nums})\n')
+# print('Безконвейерный', fin)
+file.write(f'такты - {numss}\n')
+# print('такты', numss)
+file.write(f'Конвейер БЕЗ КОНФЛИКТОВ - {final(st_f1, pluss, numss)}\n')
+# print('Конвейер', final(st_f1, pluss, numss))
 print('Конфликты(3 шт)')
 
 for i in range(3):
@@ -47,5 +48,8 @@ for i in range(3):
     st_f[int(inp[0])-1] = int(inp[1])+int(inp[2])
 
 numss = conf_numss(st_f, pluss, numss)
-print('такты', numss)
-print('Конвейер c кофликтами', final(st_f1, pluss, numss))
+file.write(f'такты (с учетом конфликтов){numss}\n')
+# print('такты', numss)
+file.write(f'Конвейер (с учетом конфликтов) {final(st_f1, pluss, numss)}\n')
+# print('Конвейер (с учетом конфликтов)', final(st_f1, pluss, numss))
+print('Данные записаны!')
